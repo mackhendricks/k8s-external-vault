@@ -1,0 +1,9 @@
+image:
+    repository: "hashicorp/vault-k8s"
+    tag: "0.16.1"
+    pullPolicy: IfNotPresent
+    imageCredentials:
+          registry: <repo>
+          username: <username>
+          password: <pw
+
