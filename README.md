@@ -22,5 +22,5 @@
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
 helm install vault hashicorp/vault \
-    --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <app instance> -f ./override.yaml
+    --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> -f ./override.yaml
 ```
