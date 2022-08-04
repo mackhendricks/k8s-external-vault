@@ -33,3 +33,39 @@ git clone https://github.com/hashicorp/vault-helm
 cd vault-helm
 helm install -f override.yaml  --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> vault .
 ```
+
+## Setting up Kubernetes Auth
+
+### Get the JSON web token (JWT) from the secret.
+
+```
+TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --output='go-template={{ .data.token }}' | base64 --decode)
+```
+
+### Retrieve the Kubernetes CA certificate
+
+```
+KUBE_CA_CERT=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.certificate-authority-data}' | base64 --decode)
+```
+
+### Retrieve the Kubernetes host URL
+```
+KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.server}')
+```
+
+### Enable Kubernetes Auth
+```
+vault auth enable kubernetes
+```
+
+### Configure Kubernetes Auth
+
+```
+vault write auth/kubernetes/config \
+     token_reviewer_jwt="$TOKEN_REVIEW_JWT" \
+     kubernetes_host="$KUBE_HOST" \
+     kubernetes_ca_cert="$KUBE_CA_CERT" \
+     issuer="https://kubernetes.default.svc.cluster.local"
+```
+
+
