@@ -15,6 +15,8 @@
 
 3) Have permissions to enable the k8s auth method on your test Vault server and the ability to set up a policy.
 
+4) Download and add this application into your Artifactory: https://hub.docker.com/r/burtlo/devwebapp-ruby
+
 
 ## Installing with Internet Access
 
