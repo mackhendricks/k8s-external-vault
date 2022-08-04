@@ -16,11 +16,18 @@
 3) Have permissions to enable the k8s auth method on your test Vault server and the ability to set up a policy.
 
 
-## 
+## Installing with Internet Access
 
 ```
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
 helm install vault hashicorp/vault \
     --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> -f ./override.yaml
+```
+
+## Installing in Airgap Environment (no internet)
+```
+git clone https://github.com/hashicorp/vault-helm
+cd vault-helm
+helm install -f override.yaml  --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> vault .
 ```
