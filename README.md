@@ -65,11 +65,11 @@ KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.cl
 You need obtain the iss field out of the returned JSON mesage
 
 ```
-echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
+KUBE_ISSUER=echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
   | kubectl create -f- --raw /api/v1/namespaces/default/serviceaccounts/default/token \
   | jq -r '.status.token' \
   | cut -d . -f2 \
-  | base64 -d
+  | base64 -d| jq -r .iss
 ```
 
 ### Enable Kubernetes Auth (for Vault Team)
