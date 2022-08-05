@@ -60,11 +60,6 @@ KUBE_CA_CERT=$(kubectl config view --raw --minify --flatten --output='jsonpath={
 KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.server}')
 ```
 
-### Enable Kubernetes Auth
-```
-vault auth enable kubernetes
-```
-
 ## Get the Issuer address
 ```
 echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
@@ -73,6 +68,12 @@ echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
   | cut -d . -f2 \
   | base64 -D
 ```
+
+### Enable Kubernetes Auth
+```
+vault auth enable kubernetes
+```
+
 
 ### Configure Kubernetes Auth
 
