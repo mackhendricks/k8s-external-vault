@@ -40,13 +40,13 @@ helm install -f override.yaml  --set "injector.externalVaultAddr=http://external
 This command filters the secrets by those that start with vault-token- and returns the name of token.
 
 ```
-VAULT_HELM_SECRET_NAME=$(kubectl get secrets --output=json | jq -r '.items[].metadata | select(.name|startswith("vault-token-")).name')
+VAULT_HELM_SECRET_NAME=$(kubectl get secrets --namespace <<yournamespace>>  --output=json | jq -r '.items[].metadata | select(.name|startswith("vault-token-")).name')
 ```
 
 ### Get the JSON web token (JWT) from the secret.
 
 ```
-TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --output='go-template={{ .data.token }}' | base64 --decode)
+TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --namespace <<yournamespace>> --output='go-template={{ .data.token }}' | base64 --decode)
 ```
 
 ### Retrieve the Kubernetes CA certificate
