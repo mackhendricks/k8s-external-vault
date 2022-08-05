@@ -61,6 +61,9 @@ KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.cl
 ```
 
 ## Get the Issuer address
+
+You need obtain the iss field out of the returned JSON mesage
+
 ```
 echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
   | kubectl create -f- --raw /api/v1/namespaces/default/serviceaccounts/default/token \
