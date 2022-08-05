@@ -65,6 +65,16 @@ KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.cl
 vault auth enable kubernetes
 ```
 
+## Get the Issuer address
+
+```
+echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
+  | kubectl create -f- --raw /api/v1/namespaces/default/serviceaccounts/default/token \
+  | jq -r '.status.token' \
+  | cut -d . -f2 \
+  | base64 -D
+```
+
 ### Configure Kubernetes Auth
 
 ```
@@ -73,6 +83,24 @@ vault write auth/kubernetes/config \
      kubernetes_host="$KUBE_HOST" \
      kubernetes_ca_cert="$KUBE_CA_CERT" \
      issuer="https://kubernetes.default.svc.cluster.local"
+```
+
+### Create a Policy
+```
+vault policy write devwebapp - <<EOF
+path "secret/data/devwebapp/config" {
+  capabilities = ["read"]
+}
+```
+
+### Create Role
+
+```
+vault write auth/kubernetes/role/devweb-app \
+     bound_service_account_names=vault-token \
+     bound_service_account_namespaces=default \
+     policies=devwebapp \
+     ttl=24h
 ```
 
 
