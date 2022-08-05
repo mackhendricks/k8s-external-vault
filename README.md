@@ -66,7 +66,7 @@ echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
   | kubectl create -f- --raw /api/v1/namespaces/default/serviceaccounts/default/token \
   | jq -r '.status.token' \
   | cut -d . -f2 \
-  | base64 -D
+  | base64 -d
 ```
 
 ### Enable Kubernetes Auth
