@@ -97,7 +97,7 @@ path "secret/data/devwebapp/config" {
 
 ```
 vault write auth/kubernetes/role/devweb-app \
-     bound_service_account_names=vault-token \
+     bound_service_account_names=$VAULT_HELM_SECRET_NAME \
      bound_service_account_namespaces=default \
      policies=devwebapp \
      ttl=24h
