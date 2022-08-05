@@ -66,7 +66,6 @@ vault auth enable kubernetes
 ```
 
 ## Get the Issuer address
-
 ```
 echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
   | kubectl create -f- --raw /api/v1/namespaces/default/serviceaccounts/default/token \
