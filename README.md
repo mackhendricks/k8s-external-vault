@@ -36,6 +36,11 @@ helm install -f override.yaml  --set "injector.externalVaultAddr=http://external
 
 ## Setting up Kubernetes Auth
 
+### Create a variable named VAULT_HELM_SECRET_NAME that stores the secret name.  This command filters the secrets by those that start with vault-token- and returns the name of token.
+```
+VAULT_HELM_SECRET_NAME=$(kubectl get secrets --output=json | jq -r '.items[].metadata | select(.name|startswith("vault-token-")).name')
+```
+
 ### Get the JSON web token (JWT) from the secret.
 
 ```
