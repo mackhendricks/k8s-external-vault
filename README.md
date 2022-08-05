@@ -34,7 +34,7 @@ cd vault-helm
 helm install -f override.yaml  --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> vault .
 ```
 
-## Setting up Kubernetes Auth
+## Setting up Kubernetes Auth Prerequsites ( for the k8s Administrator)
 
 ### Create a variable named VAULT_HELM_SECRET_NAME that stores the secret name.  
 This command filters the secrets by those that start with vault-token- and returns the name of token.
@@ -72,7 +72,7 @@ echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenRequest"}' \
   | base64 -d
 ```
 
-### Enable Kubernetes Auth
+### Enable Kubernetes Auth (for Vault Team)
 ```
 vault auth enable kubernetes
 ```
