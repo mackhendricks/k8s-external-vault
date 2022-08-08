@@ -134,6 +134,10 @@ spec:
       env:
       - name: VAULT_ADDR
         value: "http://external-vault:8200"
+      imageCredentials:
+          registry: <repo>
+          username: <username>
+          password: <pw
 EOF
 ```
 
