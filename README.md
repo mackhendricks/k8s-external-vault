@@ -27,7 +27,7 @@ helm install vault hashicorp/vault \
     --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> -f ./override.yaml
 ```
 
-## Installing in Airgap Environment (no internet)
+## Installing in Airgap Environment (no internet - Done by the Developer)
 ```
 git clone https://github.com/hashicorp/vault-helm
 cd vault-helm
@@ -110,7 +110,7 @@ vault write auth/kubernetes/role/devweb-app \
      ttl=24h
 ```
 
-## Injecting secrets into the pod
+## Injecting secrets into the pod (Done by Development Team)
 
 ### Create yaml file to deploy sample example.  Please change the external-vault to the IP or DNS name of your Vault Instance.
 
