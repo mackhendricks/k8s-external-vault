@@ -72,11 +72,15 @@ KUBE_ISSUER=echo '{"apiVersion": "authentication.k8s.io/v1", "kind": "TokenReque
   | base64 -d| jq -r .iss
 ```
 
+### Create a service account for your app(s)
+```
+kubectl create sa internal-app
+```
+
 ### Enable Kubernetes Auth (for Vault Team)
 ```
 vault auth enable kubernetes
 ```
-
 
 ### Configure Kubernetes Auth
 
@@ -100,10 +104,46 @@ path "secret/data/devwebapp/config" {
 
 ```
 vault write auth/kubernetes/role/devweb-app \
-     bound_service_account_names=$VAULT_HELM_SECRET_NAME \
-     bound_service_account_namespaces=default \
+     bound_service_account_names=internal-app \
+     bound_service_account_namespaces=<<yournamespace>> \
      policies=devwebapp \
      ttl=24h
 ```
 
+## Injecting secrets into the pod
 
+### Create yaml file to deploy sample example.  Please change the external-vault to the IP or DNS name of your Vault Instance.
+
+```
+cat > pod-devwebapp-with-annotations.yaml <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: devwebapp-with-annotations
+  labels:
+    app: devwebapp-with-annotations
+  annotations:
+    vault.hashicorp.com/agent-inject: 'true'
+    vault.hashicorp.com/role: 'devweb-app'
+    vault.hashicorp.com/agent-inject-secret-credentials.txt: 'secret/data/devwebapp/config'
+spec:
+  serviceAccountName: internal-app
+  containers:
+    - name: app
+      image: burtlo/devwebapp-ruby:k8s
+      env:
+      - name: VAULT_ADDR
+        value: "http://external-vault:8200"
+EOF
+```
+
+### Apply Yaml
+
+```
+kubectl apply --filename pod-devwebapp-with-annotations.yaml
+```
+
+### Validate that secrets were created
+```
+kubectl exec -it devwebapp-with-annotations -c app -- cat /vault/secrets/credentials.txt
+```
