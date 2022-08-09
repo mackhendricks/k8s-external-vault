@@ -17,5 +17,5 @@
 | Sync secrets into environment variables and Kubernetes secrets** | Yes | No |
 
 
-** If your security requirements require you to disable hostPath volumes, you should be aware that this method uses hostPath volumes to communicate with the CSI driver. Some Kubernetes distributions may disable this due to the level of access it gives to the node’s filesystem.
+** If your security requirements require you to disable **hostPath** volumes, you should be aware that this method uses hostPath volumes to communicate with the CSI driver. Some Kubernetes distributions may disable this due to the level of access it gives to the node’s filesystem.
 
