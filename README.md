@@ -115,6 +115,10 @@ vault write auth/kubernetes/role/devweb-app \
 
 ## Create Secret for Pulling Images from a Registry
 
+```
+ kubectl create secret docker-registry myregistrykey --docker-server=http://test.com --docker-username=mack --docker-password=password --namespace sidecar-
+```
+
 ### Create yaml file to deploy sample example.  Please change the external-vault to the IP or DNS name of your Vault Instance.
 
 ```
