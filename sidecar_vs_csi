@@ -1,0 +1,17 @@
+# Definitions
+
+CSI = Container Storage Interface
+Sidecar = Vault Sidecar
+
+# Reference Articles
+
+- [Retrieve HashiCorp Vault Secrets with Kubernetes CSI](https://www.hashicorp.com/blog/retrieve-hashicorp-vault-secrets-with-kubernetes-csi)
+- 
+
+# Comparisons
+
+|Feature | CSI  | Sidecar  |
+|---|---|---|
+|   |   |   |
+|   |   |   |
+|   |   |   |
