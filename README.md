@@ -144,10 +144,10 @@ EOF
 ### Apply Yaml
 
 ```
-kubectl apply --filename pod-devwebapp-with-annotations.yaml
+kubectl apply --filename pod-devwebapp-with-annotations.yaml --namespace <<yournamespace>>
 ```
 
 ### Validate that secrets were created
 ```
-kubectl exec -it devwebapp-with-annotations -c app -- cat /vault/secrets/credentials.txt
+kubectl exec --namespace <<yournamespace>> -it devwebapp-with-annotations -c app -- cat /vault/secrets/credentials.txt
 ```
