@@ -12,9 +12,12 @@
 
 |Feature | CSI  | Sidecar  |
 |---|---|---|
-| Developer uses anotations to specify the secrets they want to retrieve from Vault |  Yes  | Yes  |
+| Developer uses anotations to specify the secrets they want to retrieve from Vault |  No  | Yes  |
 | Secrets can be stored in an Environment variable   |  Yes | Yes   |
 | Syncing of secrets to environment variables.  | Yes  | No  |
 | Additional Containers Required | No | Yes |
-| Sync secrets into environment variables and Kubernetes secrets | Yes | No |
+| Sync secrets into environment variables and Kubernetes secrets** | Yes | No |
+
+
+** If your security requirements require you to disable hostPath volumes, you should be aware that this method uses hostPath volumes to communicate with the CSI driver. Some Kubernetes distributions may disable this due to the level of access it gives to the node’s filesystem.
 
