@@ -112,6 +112,9 @@ vault write auth/kubernetes/role/devweb-app \
 
 ## Injecting secrets into the pod (Done by Development Team)
 
+
+## Create Secret for Pulling Images from a Registry
+
 ### Create yaml file to deploy sample example.  Please change the external-vault to the IP or DNS name of your Vault Instance.
 
 ```
@@ -134,10 +137,8 @@ spec:
       env:
       - name: VAULT_ADDR
         value: "http://external-vault:8200"
-      imageCredentials:
-          registry: <repo>
-          username: <username>
-          password: <pw
+  imagePullSecrets:
+    - name: myregistrykey
 EOF
 ```
 
