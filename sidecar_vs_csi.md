@@ -14,7 +14,6 @@
 |---|---|---|
 | Developer uses anotations to specify the secrets they want to retrieve from Vault |  No  | Yes  |
 | Secrets can be stored in an Environment variable   |  Yes | Yes   |
-| Syncing of secrets to environment variables.  | Yes  | No  |
 | Additional Containers Required | No | Yes |
 | Sync secrets into environment variables and Kubernetes secrets** | Yes | No |
 
