@@ -39,7 +39,33 @@ helm install -f override.yaml  --set "injector.externalVaultAddr=http://external
 git clone https://github.com/mackhendricks/k8s-external-vault/
 ```
 
-Copy the k8s-external-vault to an internal server
+- Copy the k8s-external-vault to an internal server
+- You will need to update the injector-yaml-install/injector-deployment.yaml if using an image in a Private repository.  Also, you need to change the AGENT_INJECT_VAULT_ADDR with the http address of your vault server
+  
+```
+     containers:
+        - name: sidecar-injector
+
+          *image: "hashicorp/vault-k8s:0.16.1"*
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            allowPrivilegeEscalation: false
+          env:
+            - name: AGENT_INJECT_LISTEN
+              value: :8080
+            - name: AGENT_INJECT_LOG_LEVEL
+              value: info
+            - name: AGENT_INJECT_VAULT_ADDR
+              *value: http://release-name-vault.sidecar-test.svc:8200*
+            - name: AGENT_INJECT_VAULT_AUTH_PATH
+              value: auth/kubernetes
+            - name: AGENT_INJECT_VAULT_IMAGE
+              value: "hashicorp/vault:1.10.3"
+            - name: AGENT_INJECT_TLS_AUTO
+              value: release-name-vault-agent-injector-cfg
+            - name: AGENT_INJECT_TLS_AUTO_HOSTS
+```
+
 
 ```
 kubectl apply --namespace <k8s namespace> -f injector-yaml-install/
