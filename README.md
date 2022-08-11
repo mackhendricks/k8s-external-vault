@@ -34,6 +34,18 @@ cd vault-helm
 helm install -f override.yaml  --set "injector.externalVaultAddr=http://external-vault:8200" --namespace <k8s namespace> vault .
 ```
 
+## Installing in Airgap Environment using only Kubectl (no internet - Done by the Developer)
+```
+git clone https://github.com/mackhendricks/k8s-external-vault/
+```
+
+Copy the k8s-external-vault to an internal server
+
+```
+kubectl apply --namespace <k8s namespace> -f injector-yaml-install/
+```
+
+
 ## Setting up Kubernetes Auth Prerequsites ( for the k8s Administrator)
 
 ### Create a variable named VAULT_HELM_SECRET_NAME that stores the secret name.  
