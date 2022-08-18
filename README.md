@@ -195,3 +195,13 @@ kubectl apply --filename pod-devwebapp-with-annotations.yaml --namespace <<yourn
 ```
 kubectl exec --namespace <<yournamespace>> -it devwebapp-with-annotations -c app -- cat /vault/secrets/credentials.txt
 ```
+
+### Debugging Vault Kubernetes Auth
+
+```
+TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --namespace <<yournamespace>> --output='go-template={{ .data.token }}' | base64 --decode
+curl \
+    --request POST \
+    --data '{"jwt": "$TOKEN_REVIEW_JWT", "role": "devweb-app"}' \
+    http://68.183.22.99:8200/v1/auth/kubernetes/login
+```
