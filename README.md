@@ -203,5 +203,5 @@ TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --namespace <<your
 curl \
     --request POST \
     --data '{"jwt": "$TOKEN_REVIEW_JWT", "role": "devweb-app"}' \
-    http://68.183.22.99:8200/v1/auth/kubernetes/login
+    $KUBE_HOST
 ```
