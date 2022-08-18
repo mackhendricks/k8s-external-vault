@@ -204,5 +204,5 @@ VAULT_HOST=<vault host>
 curl \
     --request POST \
     --data '{"jwt": "$TOKEN_REVIEW_JWT", "role": "devweb-app"}' \
-    $VAULT_HOST
+    $VAULT_HOST/v1/auth/kubernetes/login
 ```
