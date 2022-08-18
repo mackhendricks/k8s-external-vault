@@ -136,6 +136,7 @@ vault policy write devwebapp - <<EOF
 path "secret/data/devwebapp/config" {
   capabilities = ["read"]
 }
+EOF
 ```
 
 ### Create Role
