@@ -200,8 +200,9 @@ kubectl exec --namespace <<yournamespace>> -it devwebapp-with-annotations -c app
 
 ```
 TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --namespace <<yournamespace>> --output='go-template={{ .data.token }}' | base64 --decode
+VAULT_HOST=<vault host>
 curl \
     --request POST \
     --data '{"jwt": "$TOKEN_REVIEW_JWT", "role": "devweb-app"}' \
-    $KUBE_HOST
+    $VAULT_HOST
 ```
