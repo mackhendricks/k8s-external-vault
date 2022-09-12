@@ -1,4 +1,4 @@
-#HelloVault Sample App
+# HelloVault Sample App
 
 ## Build Image
 ```
