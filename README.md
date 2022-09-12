@@ -136,6 +136,7 @@ vault policy write devwebapp - <<EOF
 path "secret/data/devwebapp/config" {
   capabilities = ["read"]
 }
+EOF
 ```
 
 ### Create Role
@@ -193,4 +194,15 @@ kubectl apply --filename pod-devwebapp-with-annotations.yaml --namespace <<yourn
 ### Validate that secrets were created
 ```
 kubectl exec --namespace <<yournamespace>> -it devwebapp-with-annotations -c app -- cat /vault/secrets/credentials.txt
+```
+
+### Debugging Vault Kubernetes Auth
+
+```
+TOKEN_REVIEW_JWT=$(kubectl get secret $VAULT_HELM_SECRET_NAME --namespace <<yournamespace>> --output='go-template={{ .data.token }}' | base64 --decode
+VAULT_HOST=<vault host>
+curl \
+    --request POST \
+    --data '{"jwt": "$TOKEN_REVIEW_JWT", "role": "devweb-app"}' \
+    $VAULT_HOST/v1/auth/kubernetes/login
 ```
