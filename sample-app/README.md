@@ -14,4 +14,4 @@ docker run -p 5000:5000 --env APP_SERVICE1_API_KEY=afe24243dad --env APP_SERVICE
 TODO: Sample Yaml for Deploying -  will build together
 
 ## Screenshot of App
-![Hello Vault Screenshot](docs/hellovault_screenshot.png) "Hello Vault Screenshot")
+![Hello Vault Screenshot](docs/hellovault_screenshot.png "Hello Vault Screenshot")
