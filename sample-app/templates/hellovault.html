@@ -1,0 +1,16 @@
+<!doctype html>
+<title>Hello Vault</title>
+<img src="/static/images/hashicorp_vault_logo.jpeg" alt="HashiCorp Logo" width="400" height="100">
+<hr>
+This sample application demonstrates how to inject secrets into a container using environment variables when using the Vault Sidecar approach.  
+Any environment variable that starts with "APP" will be shown below:
+<br> 
+{% if envlist %}
+<ol>
+{% for k in envlist: %}
+
+	<li>{{k}}={{envlist[k]}}</li>
+
+{%endfor%}
+</ol>
+{%endif%}
